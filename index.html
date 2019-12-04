@@ -1,19 +1,96 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+<html lang="fr">
 
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Bootstrap de Noah</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.8/css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+  <!-- Loading bar -->
+
+</head>
+
+<body style="-webkit-app-region: drag">
+  <!-- DEBUT DU PROJET-->
+
+  <!--Navbar-->
+  <nav class="navbar navbar-expand-lg navbar-dark elegant-color">
+
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="#"><i class="fas fa-battery-full"></i>&nbsp;&nbsp;Battery Saver</a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  </nav>
+  <!--/.Navbar-->
+
+  <div id="app">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1 class="mt-5">Configuration</h1>
+          <hr>
+
+          <table>
+            <tr>
+              <td><b>Status de la batterie</b></td>
+              <td v-html="statusBattery"></td>
+            </tr>
+            <tr>
+              <td><b>Numéro de série</b></td>
+              <td>{{ serialNumber }}</td>
+            </tr>
+          </table>
+
+          <canvas id="lineChart" class="mt-5"></canvas>
+
+        </div>
+        <div class="col-md-6">
+
+          <div id="batteryBackground2"></div>
+          <div id="batteryBackground"></div>
+          <div id="battery">
+            <div id="batteryIntern"></div>
+          </div>
+          <div id="percent">0</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- /FIN DU PROJET-->
+
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.8/js/mdb.js"></script>
+  <!-- VueJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+  <!-- SCRIPTS -->
+  <script src="js/app.js"></script>
+  <!-- You can also require other files to run in this process -->
+  <script src="./renderer.js"></script>
+
+</body>
+
 </html>

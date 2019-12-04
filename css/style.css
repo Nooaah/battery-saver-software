@@ -1,0 +1,65 @@
+* {
+    /*-webkit-user-select: none;
+    -webkit-app-region: drag;
+    */
+    color:white;
+}
+body {
+    background-color: #36393F;
+}
+#battery {
+    position: fixed;
+    width: 130px;
+    height: 230px;
+    background-color: transparent;
+    margin: auto;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+#batteryIntern {
+    position: absolute;
+    background-color: #FF0000;
+    opacity : 0.7;
+    height: 30%;
+    width: 100%;
+    bottom: 0;
+}
+
+#batteryBackground {
+    position: fixed;
+    width: 140px;
+    height: 240px;
+    background-color: #36393F;
+    margin: auto;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+#batteryBackground2 {
+    position: fixed;
+    width: 150px;
+    height: 250px;
+    background-color: black;
+    margin: auto;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+#percent {
+    font-size: 50px;
+    position: fixed;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: rgba(0,0,0,0.75);
+}
+table tr td
+{
+    font-size: 16px;
+    padding : 5px 10px ;
+}
