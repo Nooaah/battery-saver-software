@@ -1,18 +1,18 @@
 vm = new Vue({
     el: '#app',
     data: {
-        message: 'test',
+        message: '',
+        percent : '0',
         statusBattery: '',
+        messageStatusBattery : '',
         serialNumber: 'Non indiqué'
     },
     methods: {
-        changeMessage: function (text) {
-            this.message = text;
+        addMessage: function () {
+            document.getElementById('percent').innerHTML += '<span>' + this.message + '</span>'
         }
     }
 })
-
-vm.changeMessage('testgr')
 
 var notif = 0;
 
@@ -22,48 +22,45 @@ function readTextFile(file) {
     rawFile.onreadystatechange = function () {
         if (rawFile.readyState === 4) {
             if (rawFile.status === 200 || rawFile.status == 0) {
-                var allText = rawFile.responseText;
-                var battery = parseInt(allText);
 
-                if (battery > 100) {
-                    document.getElementById('percent').innerHTML = battery +
-                        '%<br><center><span style="font-size:15px;">(surcharge)</span></center>';
-                } else {
-                    document.getElementById('percent').innerHTML = battery + '%';
-                }
+                var battery = parseInt(rawFile.responseText);
+                vm.percent = battery + '%';
                 document.getElementById('batteryIntern').style.height = battery + '%';
 
-                //Valeur minimum
+                //Valeur minimum 50
                 if (battery < 50) {
                     if (notif != 50) {
-                        let myNotification = new Notification(battery + '% | Branchez votre ordinateur', {
+                        let myNotification = new Notification(battery + '% | Batterie faible !', {
                             body: 'Votre batterie est en dessous de 50%'
                         })
                         notif = 50
                     }
-                    if (document.getElementsByClassName('status')[0].innerHTML !=
-                        'En charge &nbsp;<i class="fas fa-bolt"></i>') {
-                        document.getElementById('batteryIntern').style.backgroundColor = "#FF0000";
+                    if (vm.statusBattery == 'charging') {
+                        document.getElementById('batteryIntern').style.backgroundColor = "green";
+                        vm.message = 'Nickel 👍';
                     } else {
-                        document.getElementById('batteryIntern').style.color = "#00FF00";
+                        document.getElementById('batteryIntern').style.backgroundColor = "red";
+                        vm.message = 'Branchez !';
                     }
                 }
-                //Valeur maximum
+                //Valeur maximum 80
                 else if (battery > 80) {
                     if (notif != 80) {
-                        let myNotification = new Notification(battery + '% Branchez votre ordinateur', {
-                            body: 'Votre batterie est en dessous de 80%'
+                        let myNotification = new Notification(battery + '% | Batterie trop élevée !', {
+                            body: 'Votre batterie est au dessus de 80%'
                         })
                         notif = 80
                     }
-                    if (document.getElementsByClassName('status')[0].innerHTML !=
-                        'En charge &nbsp;<i class="fas fa-bolt"></i>') {
-                        document.getElementById('batteryIntern').style.backgroundColor = "#00FF00";
+                    if (vm.statusBattery == 'charging') {
+                        document.getElementById('batteryIntern').style.backgroundColor = "red";
+                        vm.message = 'Débranchez !';
                     } else {
-                        document.getElementById('batteryIntern').style.color = "#FF0000";
+                        document.getElementById('batteryIntern').style.backgroundColor = "green";
+                        vm.message = 'Nickel 👍';
                     }
                 } else {
-                    document.getElementById('batteryIntern').style.backgroundColor = "#00FF00";
+                    document.getElementById('batteryIntern').style.backgroundColor = "green";
+                    vm.message = 'Nickel 👍';
                 }
 
             }
@@ -77,7 +74,7 @@ setInterval(() => {
 readTextFile("file:///sys/class/power_supply/BAT0/capacity");
 
 
-
+//Configurations
 function readSerialNumber(file, span) {
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", file, false);
@@ -89,9 +86,11 @@ function readSerialNumber(file, span) {
 
                 if (span == 'status') {
                     if (text == 'Charging\n') {
-                        vm.statusBattery = 'En charge &nbsp;<i class="fas fa-bolt"></i>';
+                        vm.statusBattery = 'charging';
+                        vm.messageStatusBattery = 'En charge &nbsp;<i class="fas fa-bolt"></i>';
                     } else {
-                        vm.statusBattery = 'Débranché';
+                        vm.statusBattery = 'none';
+                        vm.messageStatusBattery = 'Débranché';
                     }
                 }
                 if (span == 'serialNumber') {
@@ -104,11 +103,14 @@ function readSerialNumber(file, span) {
 }
 readSerialNumber("file:///sys/class/power_supply/BAT0/serial_number", 'serialNumber');
 readSerialNumber("file:///sys/class/power_supply/BAT0/status", 'status');
-
 setInterval(() => {
     readSerialNumber("file:///sys/class/power_supply/BAT0/status", 'status');
 }, 1000);
 
+
+
+
+//Graphique
 setInterval(() => {
     var heure = new Date();
     if (myLineChart.data.labels.length >= 30) {
