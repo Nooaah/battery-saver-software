@@ -7,8 +7,8 @@ vm = new Vue({
             name: '',
             icon: ''
         },
-        messagechargingTime : 'minutes',
-        chargingTime : null,
+        messagechargingTime: 'minutes',
+        chargingTime: null,
         dischargingTime: null,
         messageDischargingTime: 'Chargement...',
         statusBattery: '',
@@ -79,19 +79,8 @@ if (os == 'Win32') {
 
     });
 
-}
-
-let myNotification = new Notification('Bonjour Noah ! Voyez toutes les configurations de votre machine ' + vm.os.name, {
-    body: ''
-})
-
-
-var linux = 0
-
-if (linux == 1) {
-
-
-
+} else //LINUX
+{
     var notif = 0;
 
     function readTextFile(file) {
@@ -184,9 +173,13 @@ if (linux == 1) {
     setInterval(() => {
         readSerialNumber("file:///sys/class/power_supply/BAT0/status", 'status');
     }, 1000);
-
-
 }
+
+let myNotification = new Notification('Bonjour Noah ! Voyez toutes les configurations de votre machine ' + vm.os.name, {
+    body: ''
+})
+
+
 
 //Graphique
 setInterval(() => {
