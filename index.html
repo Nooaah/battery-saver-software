@@ -19,6 +19,8 @@
 </head>
 
 <body style="-webkit-app-region: drag">
+
+
   <!-- DEBUT DU PROJET-->
 
   <!--Navbar-->
@@ -52,6 +54,10 @@
             <tr>
               <td><b>Numéro de série</b></td>
               <td>{{ serialNumber }}</td>
+            </tr>
+            <tr>
+              <td><b>Système d'exploitation</b></td>
+              <td>{{ os.name }}&nbsp;&nbsp;<span v-html="os.icon"></span></td>
             </tr>
             <tr>
               <td><b>Interval à respecter</b></td>

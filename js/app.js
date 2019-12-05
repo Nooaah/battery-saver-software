@@ -2,9 +2,13 @@ vm = new Vue({
     el: '#app',
     data: {
         message: '',
-        percent : '0',
+        percent: '0',
+        os: {
+            name: '',
+            icon: ''
+        },
         statusBattery: '',
-        messageStatusBattery : '',
+        messageStatusBattery: '',
         serialNumber: 'Non indiqué'
     },
     methods: {
@@ -13,6 +17,21 @@ vm = new Vue({
         }
     }
 })
+
+os = navigator.platform;
+if (os == 'Win32') {
+    vm.os.name = 'Windows';
+    vm.os.icon = '<i class="fab fa-windows"></i>';
+}
+else {
+    vm.os.name = 'Unix';
+    vm.os.icon = '<i class="fab fa-linux"></i>';
+}
+
+let myNotification = new Notification('Bonjour Noah ! Voyez toutes les configurations de votre machine ' + vm.os.name, {
+    body: ''
+})
+
 
 var notif = 0;
 
