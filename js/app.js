@@ -7,13 +7,14 @@ vm = new Vue({
             name: '',
             icon: ''
         },
+        lost: 0,
         messagechargingTime: 'minutes',
         chargingTime: null,
         dischargingTime: null,
         messageDischargingTime: 'Chargement...',
         statusBattery: '',
         messageStatusBattery: 'Chargement...',
-        serialNumber: 'Non indiqué'
+        serialNumber: 'Non indiqué',
     },
     methods: {
         addMessage: function () {
@@ -67,14 +68,16 @@ if (os == 'Win32') {
 
     });
 
+
     //Changement pourcentage
     batteryIsCharging = false;
     navigator.getBattery().then(function (battery) {
-        battery.addEventListener('levelchange', function () {
-            vm.percent = battery.level * 100 + '%';
+        setInterval(function () {
+            vm.percent = Math.round(battery.level * 100) + '%';
             document.getElementById('batteryIntern').style.height = battery.level * 100 + '%';
-        })
-        vm.percent = battery.level * 100 + '%';
+        }, 1000);
+
+        vm.percent = Math.round(battery.level * 100)  + '%';
         document.getElementById('batteryIntern').style.height = battery.level * 100 + '%';
 
     });
@@ -191,7 +194,11 @@ setInterval(() => {
     myLineChart.data.labels.push(heure.getHours() + ':' + heure.getMinutes());
     myLineChart.data.datasets[0].data.push(parseInt(vm.percent));
     myLineChart.update();
-}, 60000)
+    if (myLineChart.data.datasets[0].data.length > 3) {
+        vm.lost = (myLineChart.data.datasets[0].data[myLineChart.data.datasets[0].data.length - 1] - myLineChart.data.datasets[0].data[0]) / myLineChart.data.datasets[0].data.length;
+        vm.lost = vm.lost.toFixed(2);
+    }
+}, 60000) //60000
 
 //line
 var ctxL = document.getElementById("lineChart").getContext('2d');

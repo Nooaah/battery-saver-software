@@ -44,59 +44,6 @@
 
   <div id="app">
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <h1 class="mt-5">Configuration</h1>
-          <hr>
-
-          <table>
-            <tr>
-              <td><b>Status de la batterie</b></td>
-              <td v-html="messageStatusBattery"></td>
-            </tr>
-            <tr>
-              <td><b>Numéro de série</b></td>
-              <td>{{ serialNumber }}</td>
-            </tr>
-            <tr>
-              <td><b>Système d'exploitation</b></td>
-              <td>{{ os.name }}&nbsp;&nbsp;<span v-html="os.icon"></span></td>
-            </tr>
-            <tr>
-              <td><b>Interval à respecter</b></td>
-              <td>Entre 50% et 80%</td>
-            </tr>
-            <tr>
-              <td><b>Temps restant</b></td>
-              <td>~ {{ dischargingTime }} {{ messageDischargingTime }}</td>
-            </tr>
-          </table>
-
-          <canvas id="lineChart" class="mt-5"></canvas>
-
-          <table class="mt-4">
-            <tr>
-              <td><b>Perte</b></td>
-              <td>{{ lost }}% par minute</td>
-            </tr>
-          </table>
-
-        </div>
-        <div class="col-md-6">
-
-          <div id="batteryBackground2"></div>
-          <div id="batteryBackground"></div>
-          <div id="battery">
-            <div id="batteryIntern"></div>
-          </div>
-          <div id="percent"><span>{{ percent }}</span>
-            <center><span v-html="message" style="font-size:15px"></span></center>
-          </div>
-
-        </div>
-      </div>
-    </div>
   </div>
 
 
